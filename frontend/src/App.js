@@ -42,7 +42,7 @@ class App extends Component {
 
   onRouteChange = (currentRoute) => {
     this.setState({route: currentRoute});
-    console.log(currentRoute);
+    (currentRoute === 'home') ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false})
   }
 
   // onSignInChange = () => {
@@ -86,7 +86,7 @@ class App extends Component {
         )
       .then(response => this.faceBoxBorders(this.calculateFaceDetectionBox(response)))
       .catch(err => console.log(err));
-     }
+   }
 
   render() {
     return (
