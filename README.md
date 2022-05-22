@@ -1,1 +1,1 @@
-# smart-brain
+# Face Detection App
