@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import env from 'react-dotenv';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
@@ -13,7 +14,7 @@ import Register from './components/Register/Register';
 
 
 const app = new Clarifai.App({
- apiKey: '5728e3fbafb04d049b35e2da4568c28f'
+ apiKey: env.API_KEY
 });
 
 const paramsOptions = {
@@ -68,6 +69,7 @@ class App extends Component {
       }
     });
     console.log('User Data', this.state.user);
+    console.log(env.API_KEY);
   }
 
   calculateFaceDetectionBox = (data) => {
