@@ -29,13 +29,13 @@ class SignIn extends React.Component {
 			})
 		})
 		.then(response => response.json())
-		.then(data => {
-			if(data) {
+		.then(user => {
+			if(user.id) {
 				this.props.onRouteChange('home');
-			} else {
-				this.props.onRouteChange('SignIn');
+				this.props.loadUser(user);
+				console.log('Login route', user);
 			}
-			console.log(data);
+			
 		})
 		.catch(err => {
 			console.log(err);

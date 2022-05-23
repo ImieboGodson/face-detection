@@ -37,21 +37,37 @@ class App extends Component {
       faceBox: {},
       route: 'SignIn',
       isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        password: '',
+        entries: 0,
+        joined: '',
+      },
     }
   }
 
   onRouteChange = (currentRoute) => {
     this.setState({route: currentRoute});
-    
     (currentRoute === 'home') ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false})
   }
 
-  // onSignInChange = () => {
-  //   this.setState({isSignedIn: !(this.state.isSignedIn)});
-  // }
-
   onInputChange = (event) => {
     this.setState({input: event.target.value});
+  }
+
+  loadUser = (data) => {
+    this.setState({user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        entries: data.entries,
+        joined: data.joined,
+      }
+    });
+    console.log('User Data', this.state.user);
   }
 
   calculateFaceDetectionBox = (data) => {
@@ -104,7 +120,7 @@ class App extends Component {
           (this.state.route === 'home')
           ?
           <div>
-            <Rank />
+            <Rank name={this.state.user.name} entries={this.state.user.entries} />
             <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
             <FaceRecognition faceBox={faceBox} imageUrl={imageUrl}/>
           </div>
@@ -112,9 +128,9 @@ class App extends Component {
           (
             (this.state.route === 'SignIn')
             ?
-            <SignIn onRouteChange={this.onRouteChange}/>
+            <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
             :
-            <Register onRouteChange={this.onRouteChange}/>
+            <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )
         }
         
