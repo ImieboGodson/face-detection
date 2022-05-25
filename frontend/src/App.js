@@ -96,6 +96,24 @@ class App extends Component {
     this.setState({faceBox: box});
   }
 
+  addToEntries = () => {
+    fetch('http://localhost:3005/image', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id: this.state.user.id
+      })
+    })
+    .then(response => response.json())
+    .then(count => {
+      this.setState(Object.assign(this.state.user, { entries : count }))
+      console.log(this.state.user.entries);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   onButtonSubmit = (event) => {
     this.setState({imageUrl: this.state.input});
 
@@ -103,7 +121,12 @@ class App extends Component {
         Clarifai.FACE_DETECT_MODEL,
         this.state.input,
         )
-      .then(response => this.faceBoxBorders(this.calculateFaceDetectionBox(response)))
+      .then(response => {
+        if(response) {
+          this.addToEntries()
+          this.faceBoxBorders(this.calculateFaceDetectionBox(response))
+        }
+      })
       .catch(err => console.log(err));
    }
 

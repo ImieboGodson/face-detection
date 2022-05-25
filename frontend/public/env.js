@@ -1,3 +1,3 @@
 window.env = {
-  "API_KEY": "'5728e3fbafb04d049b35e2da4568c28f';"
+  "API_KEY": "ecfc9a30df9340c6bcec0f84cffd2485"
 };

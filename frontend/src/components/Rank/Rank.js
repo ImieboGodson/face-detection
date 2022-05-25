@@ -3,12 +3,12 @@ import React from 'react';
 
 const Rank = ({ name, entries }) => {
 
-	console.log('User Data on Rank:', name + entries);
+	// console.log('User Data on Rank:', name + entries);
 
 	return(
 		<div>
 			<div className='white f3'>
-				{`Hello ${name}, your current rank is...`}
+				{`Hello ${name}, your current entries is...`}
 			</div>
 			<div className='white f1'>
 				{`#${entries}`}
