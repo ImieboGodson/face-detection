@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Navigation = ({ onRouteChange, isSignedIn }) => {
+const Navigation = ({ onRouteChange, isSignedIn, onSignOut }) => {
 	
 	if (isSignedIn) {
 		return (
 			<nav style={{padding: '5px 20px', display: 'flex', justifyContent: 'flex-end'}}>
-				<p onClick={() => onRouteChange('SignIn')} className='fa3 link dim black underline pa3 pointer'>Sign Out</p>
+				<p onClick={() => onSignOut()} className='fa3 link dim black underline pa3 pointer'>Sign Out</p>
 			</nav>
 		)
 	} else {

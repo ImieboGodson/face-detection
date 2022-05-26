@@ -72,6 +72,26 @@ class App extends Component {
     console.log(env.API_KEY);
   }
 
+  onSignOut = () => {
+    this.setState(Object.assign(this.state, 
+      {
+        input: '',
+        imageUrl: '',
+        faceBox: {},
+        route: 'SignIn',
+        isSignedIn: false,
+        user: {
+              id: '',
+              name: '',
+              email: '',
+              password: '',
+              entries: 0,
+              joined: '',
+          }
+      }));
+    console.log('Signing out', this.state);
+  }
+
   calculateFaceDetectionBox = (data) => {
     const faceRegionData = data.outputs[0].data.regions[0].region_info.bounding_box;
 
@@ -139,7 +159,7 @@ class App extends Component {
         <Particles className='particles'
           params={paramsOptions}
         />
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+        <Navigation onSignOut={this.onSignOut} isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
         <Logo />
         {
           (this.state.route === 'home')
