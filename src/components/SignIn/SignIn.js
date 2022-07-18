@@ -19,7 +19,7 @@ class SignIn extends React.Component {
 	}
 
 	onFormSubmit = () => {
-		const serverUrl = 'http://localhost:3005/signin';
+		const serverUrl = 'http://localhost:8000/login';
 		fetch(serverUrl, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -34,11 +34,12 @@ class SignIn extends React.Component {
 				this.props.onRouteChange('home');
 				this.props.loadUser(user);
 				console.log('Login route', user);
+			} else {
+				console.log('Wrong Credentials');
 			}
-			
 		})
 		.catch(err => {
-			console.log(err);
+			console.log('Error Fetching User');
 		})
 	}
 
