@@ -42,7 +42,6 @@ class App extends Component {
         id: '',
         name: '',
         email: '',
-        password: '',
         entries: 0,
         joined: '',
       },
@@ -63,7 +62,6 @@ class App extends Component {
         id: data.id,
         name: data.name,
         email: data.email,
-        password: data.password,
         entries: data.entries,
         joined: data.joined,
       }
@@ -84,7 +82,6 @@ class App extends Component {
               id: '',
               name: '',
               email: '',
-              password: '',
               entries: 0,
               joined: '',
           }
@@ -117,7 +114,7 @@ class App extends Component {
   }
 
   addToEntries = () => {
-    fetch('http://localhost:3005/image', {
+    fetch('http://localhost:8000/image', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
