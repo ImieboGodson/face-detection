@@ -3,7 +3,6 @@ import env from 'react-dotenv';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
@@ -12,18 +11,13 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
-
-const app = new Clarifai.App({
- apiKey: env.API_KEY
-});
-
 const paramsOptions = {
   particles: {
     number: {
       value: 100,
       density: {
         enable: true,
-        value_area: 800
+        value_area: 3000
       }
     }
   }
@@ -134,12 +128,19 @@ class App extends Component {
   onButtonSubmit = (event) => {
     this.setState({imageUrl: this.state.input});
 
-     app.models.predict (
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input,
-        )
+     fetch('http://localhost:8000/image_data', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then(data => {
+        return data.json();
+    })
       .then(response => {
         if(response) {
+          console.log(response);
           this.addToEntries()
           this.faceBoxBorders(this.calculateFaceDetectionBox(response))
         }
