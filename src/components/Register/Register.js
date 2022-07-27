@@ -25,10 +25,11 @@ class Register extends React.Component {
 
 	onFormSubmit = () => {
 		const {userName, userEmail, userPassword } = this.state;
+		const validEmail = userEmail.includes('@');
 
 		if(userName === '' || userEmail === '' || userPassword === '') {
 			console.log("You Can't Leave Input Fields Empty");
-		} else {
+		} else if (validEmail) {
 			fetch('http://localhost:8000/register', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -49,7 +50,9 @@ class Register extends React.Component {
 			.catch(err => {
 				console.log(err);
 			})
-		}	
+		} else {
+			console.log('Enter a valid email address');
+		}
 	}
 
 	render() {

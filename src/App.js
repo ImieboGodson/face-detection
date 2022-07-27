@@ -128,7 +128,10 @@ class App extends Component {
   onButtonSubmit = (event) => {
     this.setState({imageUrl: this.state.input});
 
-     fetch('http://localhost:8000/image_data', {
+    if (this.state.input === '') {
+      console.log('Input Field Is Empty');
+    } else {
+      fetch('http://localhost:8000/image_data', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -146,6 +149,8 @@ class App extends Component {
           }
       })
       .catch(err => console.log(err));
+    }
+     
    }
 
   render() {
