@@ -129,21 +129,21 @@ class App extends Component {
     this.setState({imageUrl: this.state.input});
 
      fetch('http://localhost:8000/image_data', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        input: this.state.input
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
       })
-    })
-    .then(data => {
-        return data.json();
-    })
-      .then(response => {
-        if(response) {
-          console.log(response);
-          this.addToEntries()
-          this.faceBoxBorders(this.calculateFaceDetectionBox(response))
-        }
+      .then(data => {
+          return data.json();
+      })
+        .then(response => {
+          if(response) {
+            console.log(response);
+            this.addToEntries()
+            this.faceBoxBorders(this.calculateFaceDetectionBox(response))
+          }
       })
       .catch(err => console.log(err));
    }
