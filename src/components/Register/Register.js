@@ -24,26 +24,32 @@ class Register extends React.Component {
 	}
 
 	onFormSubmit = () => {
-		fetch('http://localhost:8000/register', {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				name: this.state.userName,
-				email: this.state.userEmail,
-				password: this.state.userPassword,
+		const {userName, userEmail, userPassword } = this.state;
+
+		if(userName === '' || userEmail === '' || userPassword === '') {
+			console.log("You Can't Leave Input Fields Empty");
+		} else {
+			fetch('http://localhost:8000/register', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					name: userName,
+					email: userEmail,
+					password: userPassword,
+				})
 			})
-		})
-		.then(response => response.json())
-		.then(user => {
-			if(user.id) {
-				console.log('register route', user);
-				this.props.loadUser(user);
-				this.props.onRouteChange('home');
-			}
-		})
-		.catch(err => {
-			console.log(err);
-		})
+			.then(response => response.json())
+			.then(user => {
+				if(user.id) {
+					console.log('register route', user);
+					this.props.loadUser(user);
+					this.props.onRouteChange('home');
+				}
+			})
+			.catch(err => {
+				console.log(err);
+			})
+		}	
 	}
 
 	render() {
