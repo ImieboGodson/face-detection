@@ -21,10 +21,11 @@ class SignIn extends React.Component {
 	onFormSubmit = () => {
 		const { userEmail, userPassword } = this.state;
 		const serverUrl = 'http://localhost:8000/login';
+		const validEmail = userEmail.includes('@') && userEmail.includes('.com');
 
 		if(userEmail === '' || userPassword === '') {
 			console.log("You Can't Leave Input Fields Empty");
-		} else {
+		} else if (validEmail) {
 			fetch(serverUrl, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
@@ -46,6 +47,8 @@ class SignIn extends React.Component {
 			.catch(err => {
 				console.log('Error Fetching User');
 			})
+		} else {
+			console.log('Enter a valid email address');
 		}
 	}
 
