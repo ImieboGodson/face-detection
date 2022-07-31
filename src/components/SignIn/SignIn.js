@@ -19,28 +19,34 @@ class SignIn extends React.Component {
 	}
 
 	onFormSubmit = () => {
+		const { userEmail, userPassword } = this.state;
 		const serverUrl = 'http://localhost:8000/login';
-		fetch(serverUrl, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				email: this.state.userEmail,
-				password: this.state.userPassword,
+
+		if(userEmail === '' || userPassword === '') {
+			console.log("You Can't Leave Input Fields Empty");
+		} else {
+			fetch(serverUrl, {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					email: userEmail,
+					password: userPassword,
+				})
 			})
-		})
-		.then(response => response.json())
-		.then(user => {
-			if(user.id) {
-				this.props.onRouteChange('home');
-				this.props.loadUser(user);
-				console.log('Login route', user);
-			} else {
-				console.log('Wrong Credentials');
-			}
-		})
-		.catch(err => {
-			console.log('Error Fetching User');
-		})
+			.then(response => response.json())
+			.then(user => {
+				if(user.id) {
+					this.props.onRouteChange('home');
+					this.props.loadUser(user);
+					console.log('Login route', user);
+				} else {
+					console.log('Wrong Credentials');
+				}
+			})
+			.catch(err => {
+				console.log('Error Fetching User');
+			})
+		}
 	}
 
 
