@@ -25,7 +25,7 @@ class Register extends React.Component {
 
 	onFormSubmit = () => {
 		const {userName, userEmail, userPassword } = this.state;
-		const validEmail = userEmail.includes('@');
+		const validEmail = userEmail.includes('@') && userEmail.includes('.com');
 
 		if(userName === '' || userEmail === '' || userPassword === '') {
 			console.log("You Can't Leave Input Fields Empty");
