@@ -20,7 +20,7 @@ class SignIn extends React.Component {
 
 	onFormSubmit = () => {
 		const { userEmail, userPassword } = this.state;
-		const serverUrl = 'http://localhost:8000/login';
+		const serverUrl = 'https://limitless-scrubland-32338.herokuapp.com/login';
 		const validEmail = userEmail.includes('@') && userEmail.includes('.com');
 
 		if(userEmail === '' || userPassword === '') {
@@ -39,7 +39,7 @@ class SignIn extends React.Component {
 				if(user.id) {
 					this.props.onRouteChange('home');
 					this.props.loadUser(user);
-					console.log('Login route', user);
+					// console.log('Login route', user);
 				} else {
 					console.log('Wrong Credentials');
 				}
