@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import env from 'react-dotenv';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
@@ -60,8 +59,6 @@ class App extends Component {
         joined: data.joined,
       }
     });
-    console.log('User Data', this.state.user);
-    console.log(env.API_KEY);
   }
 
   onSignOut = () => {
@@ -80,7 +77,7 @@ class App extends Component {
               joined: '',
           }
       }));
-    console.log('Signing out', this.state);
+    // console.log('Signing out', this.state);
   }
 
   calculateFaceDetectionBox = (data) => {
@@ -90,8 +87,8 @@ class App extends Component {
     const imageWidth = Number(image.width);
     const imageHeight = Number(image.height);
 
-    console.log(imageWidth, imageHeight);
-    console.log(faceRegionData);
+    // console.log(imageWidth, imageHeight);
+    // console.log(faceRegionData);
 
     return {
       topBorder: faceRegionData.top_row * imageHeight,
@@ -103,12 +100,12 @@ class App extends Component {
   }
 
   faceBoxBorders = (box) => {
-    console.log(box);
+    // console.log(box);
     this.setState({faceBox: box});
   }
 
   addToEntries = () => {
-    fetch('http://localhost:8000/image', {
+    fetch('https://limitless-scrubland-32338.herokuapp.com/image', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -118,7 +115,7 @@ class App extends Component {
     .then(response => response.json())
     .then(count => {
       this.setState(Object.assign(this.state.user, { entries : count }))
-      console.log(this.state.user.entries);
+      // console.log(this.state.user.entries);
     })
     .catch(err => {
       console.log(err);
@@ -131,7 +128,7 @@ class App extends Component {
     if (this.state.input === '') {
       console.log('Input Field Is Empty');
     } else {
-      fetch('http://localhost:8000/image_data', {
+      fetch('https://limitless-scrubland-32338.herokuapp.com/image_data', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -143,7 +140,7 @@ class App extends Component {
       })
         .then(response => {
           if(response) {
-            console.log(response);
+            // console.log(response);
             this.addToEntries()
             this.faceBoxBorders(this.calculateFaceDetectionBox(response))
           }
